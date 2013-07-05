@@ -83,3 +83,89 @@ class DurationTests(unittest.TestCase):
         self.assertEqual(pyrye.Durations.Year, pyrye.Durations.Month * 12)
 
 
+class RatesTests(unittest.TestCase):
+
+    def test_seconds(self):
+        n = 30
+        d = pyrye.Durations.Second * n
+        self.assertEqual(d.rate, pyrye.Durations.Second)
+        self.assertEqual(d.next_rate, pyrye.Durations.Minute)
+        self.assertEqual(d.prev_rate, 0)
+
+        n = 72
+        d = pyrye.Durations.Second * n
+        self.assertEqual(d.rate, pyrye.Durations.Minute)
+
+    def test_minutes(self):
+        n = 30
+        d = pyrye.Durations.Minute * n
+        self.assertEqual(d.rate, pyrye.Durations.Minute)
+        self.assertEqual(d.next_rate, pyrye.Durations.Hour)
+        self.assertEqual(d.prev_rate, pyrye.Durations.Second)
+
+        n = 72
+        d = pyrye.Durations.Minute * n
+        self.assertEqual(d.rate, pyrye.Durations.Hour)
+
+    def test_hours(self):
+        n = 12
+        d = pyrye.Durations.Hour * n
+        self.assertEqual(d.rate, pyrye.Durations.Hour)
+        self.assertEqual(d.next_rate, pyrye.Durations.Day)
+        self.assertEqual(d.prev_rate, pyrye.Durations.Minute)
+
+        n = 32
+        d = pyrye.Durations.Hour * n
+        self.assertEqual(d.rate, pyrye.Durations.Day)
+
+    def test_days(self):
+        n = 6
+        d = pyrye.Durations.Day * n
+        self.assertEqual(d.rate, pyrye.Durations.Day)
+        self.assertEqual(d.next_rate, pyrye.Durations.Week)
+        self.assertEqual(d.prev_rate, pyrye.Durations.Hour)
+
+        n = 9
+        d = pyrye.Durations.Day * n
+        self.assertEqual(d.rate, pyrye.Durations.Week)
+
+    def test_weeks(self):
+        n = 3
+        d = pyrye.Durations.Week * n
+        self.assertEqual(d.rate, pyrye.Durations.Week)
+        self.assertEqual(d.next_rate, pyrye.Durations.Month)
+        self.assertEqual(d.prev_rate, pyrye.Durations.Day)
+
+        n = 6
+        d = pyrye.Durations.Week * n
+        self.assertEqual(d.rate, pyrye.Durations.Month)
+
+    def test_months(self):
+        n = 10
+        d = pyrye.Durations.Month * n
+        self.assertEqual(d.rate, pyrye.Durations.Month)
+        self.assertEqual(d.next_rate, pyrye.Durations.Year)
+        self.assertEqual(d.prev_rate, pyrye.Durations.Week)
+
+        n = 18
+        d = pyrye.Durations.Month * n
+        self.assertEqual(d.rate, pyrye.Durations.Year)
+
+    def test_years(self):
+        n = 2
+        d = pyrye.Durations.Year * n
+        self.assertEqual(d.rate, pyrye.Durations.Year)
+        self.assertEqual(d.next_rate, 0)
+        self.assertEqual(d.prev_rate, pyrye.Durations.Month)
+
+        n = .5
+        d = pyrye.Durations.Year * n
+        self.assertEqual(d.rate, pyrye.Durations.Month)
+
+
+
+
+
+
+
+

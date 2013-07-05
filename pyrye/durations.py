@@ -72,6 +72,36 @@ class Duration(int):
     def remaining_months(self):
         return self % Durations.Year / Durations.Month
 
+    @property
+    def rate(self):
+        for duration in reversed(Durations.durations):
+            if self / duration:
+                return duration
+        return 0
+
+    @property
+    def next_rate(self):
+        rate = self.rate
+        if rate not in Durations.durations:
+            return 0
+        i = Durations.durations.index(rate) + 1
+        if i >= len(Durations.durations):
+            return 0
+
+        return Durations.durations[i]
+
+    @property
+    def prev_rate(self):
+        rate = self.rate
+        if rate not in Durations.durations:
+            return 0
+        i = Durations.durations.index(rate) - 1
+        if i < 0:
+            return 0
+
+        return Durations.durations[i]
+
+
 class Durations:
     Second = Duration(1)
     Minute = Second * 60
@@ -80,4 +110,14 @@ class Durations:
     Week   = Day    * 7
     Month  = Week   * 4
     Year   = Month  * 12
+
+    durations = [
+        Second,
+        Minute,
+        Hour,
+        Day,
+        Week,
+        Month,
+        Year,
+    ]
 
