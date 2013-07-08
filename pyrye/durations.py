@@ -1,3 +1,5 @@
+import datetime
+
 class Duration(int):
     @classmethod
     def from_timedelta(cls, td):
@@ -19,6 +21,10 @@ class Duration(int):
 
     def __mod__(self, other):
         return Duration(int(self) % other)
+
+    @property
+    def timedelta(self):
+        return datetime.timedelta(seconds = self.seconds)
 
     @property
     def seconds(self):

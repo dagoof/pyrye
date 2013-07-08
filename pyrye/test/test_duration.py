@@ -8,6 +8,12 @@ class DurationTests(unittest.TestCase):
         td = datetime.timedelta(days = 1)
         self.assertEqual(pyrye.Durations.Day, pyrye.Duration.from_timedelta(td))
 
+    def test_to_timedelta(self):
+        import datetime
+
+        dt_day = datetime.timedelta(days = 1)
+        rye_day = pyrye.Durations.Day
+        self.assertEqual(rye_day.timedelta, dt_day)
 
     def test_seconds(self):
         n = 72
